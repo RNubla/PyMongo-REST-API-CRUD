@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask.json import jsonify
 from flask_pymongo import PyMongo, MongoClient
 from bson.json_util import dumps, loads
-# import json
+import json
 import pprint
 
 client = MongoClient('localhost', 27017)
@@ -15,10 +15,13 @@ app = Flask(__name__)
 
 @app.route('/', methods=["POST"])
 def add_stuff():
-    new_post = [{'name': request.json['name']}]
+    new_post = [{'characters': request.json['characters']}]
+    data = new_post[0].get('characters')
+    # pprint.pprint(data[0].get('characters'))
+    pprint.pprint(data)
     # return contactCollection.insert_many(new_post).inserted_ids
-    contactCollection.insert_many(new_post).inserted_ids
-    return dumps(new_post)
+    contactCollection.insert_many(data).inserted_ids
+    return dumps(data)
 
 
 @app.route('/', methods=["GET"])
@@ -48,4 +51,4 @@ def update_one():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
