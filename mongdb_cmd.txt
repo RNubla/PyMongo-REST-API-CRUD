@@ -1,0 +1,5 @@
+ sudo service mongodb start
+ sudo service mongodb status
+ sudo service mongodb stop
+ mongo --eval 'db.runCommand({connectionStatus:1})'
+ mongo --eval 'db.admin().listDatabases'
